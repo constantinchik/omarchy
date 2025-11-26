@@ -48,6 +48,23 @@
   margin-right: 17px;
 }
 
+#custom-wiremix {
+  margin-right: 17px;
+}
+
+#custom-nordvpn {
+  margin-right: 17px;
+}
+
+#custom-nordvpn.connected {
+  color: @green;
+}
+
+#custom-nordvpn.disconnected {
+  color: @foreground;
+  opacity: 0.5;
+}
+
 #network {
   margin-right: 13px;
 }

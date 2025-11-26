@@ -7,8 +7,10 @@
   "modules-left": ["custom/omarchy", "hyprland/workspaces"],
   "modules-center": ["clock", "custom/update", "custom/screenrecording-indicator"],
   "modules-right": [
-    "group/tray-expander",
+    "tray",
     "bluetooth",
+    "custom/wiremix",
+    "custom/nordvpn",
     "network",
     "pulseaudio",
     "cpu",
@@ -104,6 +106,20 @@
     "format-no-controller": "",
     "tooltip-format": "Devices connected: {num_connections}",
     "on-click": "omarchy-launch-bluetooth"
+  },
+  "custom/wiremix": {
+    "on-click": "omarchy-launch-wiremix",
+    "exec": "$OMARCHY_PATH/default/waybar/indicators/wiremix.sh",
+    "signal": 9,
+    "interval": 5,
+    "return-type": "json"
+  },
+  "custom/nordvpn": {
+    "on-click": "nordvpn-gui",
+    "exec": "$OMARCHY_PATH/default/waybar/indicators/nordvpn.sh",
+    "signal": 10,
+    "interval": 10,
+    "return-type": "json"
   },
   "pulseaudio": {
     "format": "{icon}",

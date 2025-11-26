@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec omarchy-launch-or-focus-tui wiremix
