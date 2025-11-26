@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Get the default browser executable
+default_browser=$(xdg-settings get default-web-browser)
+browser_exec=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' {~/.local,~/.nix-profile,/usr}/share/applications/$default_browser 2>/dev/null | head -1)
+
+# Handle private/incognito flag if needed
+if [[ $browser_exec =~ (firefox|zen|librewolf) ]]; then
+  private_flag="--private-window"
+else
+  private_flag="--incognito"
+fi
+
+# Extract browser name for window matching
+browser_name=$(basename "$browser_exec")
+
+# Try to find an existing browser window
+WINDOW_ADDRESS=$(hyprctl clients -j | jq -r --arg p "$browser_name" '.[]|select((.class|test($p;"i")))|.address' | head -n1)
+
+if [[ -n $WINDOW_ADDRESS ]]; then
+  # Focus existing window
+  hyprctl dispatch focuswindow "address:$WINDOW_ADDRESS"
+else
+  # Launch new browser window
+  exec setsid uwsm-app -- "$browser_exec" "${@/--private/$private_flag}"
+fi
